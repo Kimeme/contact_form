@@ -11,6 +11,7 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
 
   final _formfield= GlobalKey<FormState>();
+  final fullName= TextEditingController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
   bool passToggle= true;
@@ -34,15 +35,21 @@ class _FormScreenState extends State<FormScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("assets/avatar2.png", height: 100, width: 100,),
-               SizedBox( height: 30),
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: "FullName",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(),
-                      )
-                  ) ,
+                SizedBox(height:30,),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: " Enter your fullName",
+                  border: OutlineInputBorder(),
                 ),
+                validator: (value){
+                  bool nameValid=RegExp(r'^[a-z A-Z]+$').hasMatch(value!);
+                  if(value!.isEmpty){
+                    return " Enter correct fullName";
+                  }
+                  else if(!nameValid){
+                    return "Enter valid fullName";
+                  }
+                }),
                 SizedBox(height: 10,),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
